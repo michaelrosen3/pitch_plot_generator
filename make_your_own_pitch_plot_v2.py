@@ -26,10 +26,17 @@ def my_hash_func(obj):
     return hash(str(obj))
 
 @st.cache(hash_funcs={types.FunctionType: my_hash_func})
+
 def load_data():
-    # Full path to the pickle file
-    file_path = '/Users/michaelrosen/Desktop/pitch_plot_generator/pitch_plot_generator/pitch_plot_data_v2.pkl'
-    return pd.read_pickle(file_path)
+    # URL to the raw pickle file on GitHub
+    url = 'https://github.com/michaelrosen3/pitch_plot_generator/blob/main/pitch_plot_data_v2.pkl'
+    response = requests.get(url)
+    return pd.read_pickle(BytesIO(response.content))
+
+# Example usage in Streamlit app
+data = load_data()
+if data is not None:
+    st.write(data.head())
 
 # Load data once
 statcast_data = load_data()
