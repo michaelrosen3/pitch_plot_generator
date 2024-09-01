@@ -9,17 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import requests
 from io import BytesIO
-
-
-# In[2]:
-
-
 import streamlit as st
-
-
-# In[7]:
-
-
 import types
 
 def my_hash_func(obj):
@@ -27,12 +17,11 @@ def my_hash_func(obj):
     return hash(str(obj))
 
 @st.cache(hash_funcs={types.FunctionType: my_hash_func})
-
 def load_data():
-    url = 'https://github.com/michaelrosen3/pitch_plot_generator/blob/main/pitch_plot_data_excel.xlsx'
+    url = 'https://github.com/michaelrosen3/pitch_plot_generator/blob/main/pitch_plot_data_excel.xlsx?raw=true'
     response = requests.get(url)
     response.raise_for_status()  # Check for HTTP errors
-    return pd.read_pickle(BytesIO(response.content))
+    return pd.read_excel(BytesIO(response.content))
 
 # Example usage in Streamlit app
 data = load_data()
@@ -100,4 +89,3 @@ if st.button('Generate Pitch Plot'):
         plot_pitch_movement(pitcher_name)
     else:
         st.write('Player not found. Please check the name and try again.')
-
