@@ -26,8 +26,9 @@ def my_hash_func(obj):
 
 @st.cache(hash_funcs={types.FunctionType: my_hash_func})
 def load_data():
-    # Replace this with the actual data loading logic
-    return pd.read_pickle('/Users/michaelrosen/Desktop/pitch_plot_generator/pitch_plot_generator/pitch_plot_data_v2.pkl')
+    # Use a relative path to the pickle file
+    file_path = os.path.join('data', 'statcast_data.pkl')
+    return pd.read_pickle(file_path)
 
 # Load data once
 statcast_data = load_data()
