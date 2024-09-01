@@ -1,4 +1,3 @@
-
-matplotlib @ file:///opt/concourse/worker/volumes/live/f670ab63-e220-495e-450b-14c9591f195b/volume/matplotlib-suite_1634667037960/work
-pandas==1.3.4
-
+streamlit
+pandas
+matplotlib
