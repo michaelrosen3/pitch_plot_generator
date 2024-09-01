@@ -7,7 +7,8 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import os
+import requests
+from io import BytesIO
 
 
 # In[2]:
