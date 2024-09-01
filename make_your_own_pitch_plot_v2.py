@@ -25,8 +25,6 @@ def load_data():
 
 # Example usage in Streamlit app
 data = load_data()
-if data is not None:
-    st.write(data.head())
 
 # Load data once
 statcast_data = load_data()
