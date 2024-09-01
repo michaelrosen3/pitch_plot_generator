@@ -29,9 +29,9 @@ def my_hash_func(obj):
 @st.cache(hash_funcs={types.FunctionType: my_hash_func})
 
 def load_data():
-    # URL to the raw pickle file on GitHub
     url = 'https://github.com/michaelrosen3/pitch_plot_generator/blob/main/pitch_plot_data_v2.pkl'
     response = requests.get(url)
+    response.raise_for_status()  # Check for HTTP errors
     return pd.read_pickle(BytesIO(response.content))
 
 # Example usage in Streamlit app
