@@ -45,12 +45,13 @@ def plot_pitch_movement(pitcher_name):
     }
     colors = [pitch_color_dict.get(pt, '#999999') for pt in pitch_types]
 
-    plt.figure(figsize=(10, 6))
+    plt.figure(figsize=(10, 10))
     for i, pitch_type in enumerate(pitch_types):
         pitches = pitcher_data[pitcher_data['pitch_type'] == pitch_type]
         plt.scatter(pitches['pfx_x'] * -12, pitches['pfx_z'] * 12, label=pitch_type, color=colors[i], alpha=0.7)
 
     # Add labels and title
+    plt.axis('square')
     plt.xlabel('Horizontal Movement, pitcher perspective (inches)')
     plt.ylabel('Vertical Movement, pitcher perspective (inches)')
     plt.title(f'{pitcher_name} Pitch Plot (2024)')
