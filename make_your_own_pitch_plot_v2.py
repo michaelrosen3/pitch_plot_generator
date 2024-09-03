@@ -90,7 +90,7 @@ st.text('FF: Four-Seam Fastball\n'
 player_names = sorted(statcast_data['player_name'].unique())
 
 # Dropdown menu for player name selection
-pitcher_name = st.selectbox('Select player name', player_names)
+pitcher_name = st.selectbox('Select player name', [''] + player_names)
 
 # Generate plot when the button is clicked
 if st.button('Generate Pitch Plot'):
