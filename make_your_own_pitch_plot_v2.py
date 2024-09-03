@@ -89,14 +89,6 @@ st.text('FF: Four-Seam Fastball\n'
 # Create a list of unique player names for the dropdown menu
 player_names = sorted(statcast_data['player_name'].unique())
 
-pitcher_name_input = st.text_input('Start typing player name')
-
-# Filter player names based on user input
-if pitcher_name_input:
-    filtered_player_names = [name for name in player_names if pitcher_name_input.lower() in name.lower()]
-else:
-    filtered_player_names = []
-
 # Dropdown menu for player name selection
 pitcher_name = st.selectbox('Search player name', [''] + player_names)
 
