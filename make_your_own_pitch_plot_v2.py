@@ -92,22 +92,9 @@ player_names = sorted(statcast_data['player_name'].unique())
 # Dropdown menu for player name selection
 pitcher_name = st.selectbox('Search player name', [''] + player_names)
 
-start_date = st.date_input('Start date', value=None)
-end_date = st.date_input('End date', value=None)
-
 # Generate plot when the button is clicked
 if st.button('Generate Pitch Plot'):
-    if pitcher_name and pitcher_name in statcast_data['player_name'].unique():
-        # Filter data based on the selected player and date range
-        filtered_data = statcast_data[
-            (statcast_data['player_name'] == pitcher_name) & 
-            (statcast_data['game_date'] >= pd.to_datetime(start_date)) & 
-            (statcast_data['game_date'] <= pd.to_datetime(end_date))
-        ]
-        
-        if not filtered_data.empty:
-            plot_pitch_movement(filtered_data, pitcher_name)
-        else:
-            st.write('No data available for the selected date range.')
+    if pitcher_name in statcast_data['player_name'].unique():
+        plot_pitch_movement(pitcher_name)
     else:
         st.write('Player not found. Please check the name and try again.')
