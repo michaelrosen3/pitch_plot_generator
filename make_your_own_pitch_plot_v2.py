@@ -83,7 +83,7 @@ st.text('FF: Four-Seam Fastball\n'
         'SL: Slider\n'
         'FC: Cutter\n'
         'FS: Splitter\n'
-        'KC: Knuckle Curve\n',
+        'KC: Knuckle Curve\n'
         'ST: Sweeper')
 
 # Create a list of unique player names for the dropdown menu
