@@ -76,6 +76,15 @@ def plot_pitch_movement(pitcher_name):
 # Streamlit app layout
 st.title('Pitch Plot Generator')
 
+st.text('FF: Four-Seam Fastball\n'
+        'SI: Sinker\n'
+        'CH: Changeup\n'
+        'CU: Curveball\n'
+        'SL: Slider\n'
+        'FC: Cutter\n'
+        'FS: Splitter\n'
+        'KC: Knuckle Curve')
+
 # Create a list of unique player names for the dropdown menu
 player_names = sorted(statcast_data['player_name'].unique())
 
