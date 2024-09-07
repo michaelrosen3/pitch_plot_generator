@@ -80,16 +80,16 @@ def plot_pitch_movement(pitcher_name, start_date, end_date):
     st.pyplot(plt)
 
 def display_summary_statistics(pitcher_data):
-    # Calculate summary statistics for iVB and HB
-    iVB_stats = (pitcher_data['pfx_z']*12).describe()
-    HB_stats = (pitcher_data['pfx_x']*12).describe()
+    # Calculate the mean of pfx_x and pfx_z for each pitch_type
+    mean_pfx = pitcher_data.groupby('pitch_type')[['pfx_x', 'pfx_z']].mean()
+    
+    # Multiply the means by 12
+    mean_pfx *= 12
     
     # Display the statistics
     st.write("### Summary Statistics")
-    st.write("#### iVB (Induced Vertical Break)")
-    st.write(iVB_stats)
-    st.write("#### HB (Horizontal Break)")
-    st.write(HB_stats)
+    st.write("#### Mean pfx_x and pfx_z (multiplied by 12) for each pitch type")
+    st.write(mean_pfx)
 
 # Streamlit app layout
 st.title('Pitch Plot Generator')
