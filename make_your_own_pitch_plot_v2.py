@@ -18,7 +18,7 @@ def my_hash_func(obj):
 
 @st.cache(hash_funcs={types.FunctionType: my_hash_func})
 def load_data():
-    url = 'https://github.com/michaelrosen3/pitch_plot_generator/blob/main/pitch_plot_data_excel.xlsx?raw=true'
+    url = 'https://github.com/michaelrosen3/pitch_plot_generator/blob/main/pitch_plot_data_excel_v2.xlsx?raw=true'
     response = requests.get(url)
     response.raise_for_status()  # Check for HTTP errors
     return pd.read_excel(BytesIO(response.content))
@@ -91,6 +91,18 @@ player_names = sorted(statcast_data['player_name'].unique())
 
 # Dropdown menu for player name selection
 pitcher_name = st.selectbox('Search player name', [''] + player_names)
+
+if not statcast_data.empty:
+    min_date = statcast_data['game_date'].min().date()
+    max_date = statcast_data['game_date'].max().date()
+
+    start_date, end_date = st.slider(
+        'Select a time window',
+        min_value=min_date,
+        max_value=max_date,
+        value=(min_date, max_date),
+        format="YYYY-MM-DD"
+    )
 
 if st.button('Generate Pitch Plot'):
     if pitcher_name in statcast_data['player_name'].unique():
