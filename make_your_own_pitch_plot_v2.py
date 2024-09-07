@@ -29,8 +29,10 @@ data = load_data()
 # Load data once
 statcast_data = load_data()
 
-def plot_pitch_movement(pitcher_name):
-    pitcher_data = statcast_data[statcast_data['player_name'] == pitcher_name]
+def plot_pitch_movement(pitcher_name, start_date, end_date):
+    pitcher_data = statcast_data[(statcast_data['player_name'] == pitcher_name) & 
+                                 (statcast_data['game_date'] >= start_date) & 
+                                 (statcast_data['game_date'] <= end_date)]
 
     # Get unique pitch types for the pitcher
     pitch_types = pitcher_data['pitch_type'].unique()
@@ -54,7 +56,7 @@ def plot_pitch_movement(pitcher_name):
     plt.axis('square')
     plt.xlabel('Horizontal Movement, pitcher perspective (inches)')
     plt.ylabel('Vertical Movement, pitcher perspective (inches)')
-    plt.title(f'{pitcher_name} Pitch Plot (2024)')
+    plt.title(f'{pitcher_name} Pitch Plot ({start_date} to {end_date})')
 
     # Set x and y limits
     plt.xlim(-25, 25)
@@ -72,6 +74,7 @@ def plot_pitch_movement(pitcher_name):
     plt.legend()
 
     st.pyplot(plt)
+
 
 # Streamlit app layout
 st.title('Pitch Plot Generator')
