@@ -56,7 +56,11 @@ def plot_pitch_movement(pitcher_name, start_date, end_date):
     plt.axis('square')
     plt.xlabel('Horizontal Movement, pitcher perspective (inches)')
     plt.ylabel('Vertical Movement, pitcher perspective (inches)')
-    plt.title(f'{pitcher_name} Pitch Plot ({start_date} to {end_date})')
+    
+    # Format the dates to show only YYYY-MM-DD
+    formatted_start_date = start_date.strftime('%Y-%m-%d')
+    formatted_end_date = end_date.strftime('%Y-%m-%d')
+    plt.title(f'{pitcher_name} Pitch Plot ({formatted_start_date} to {formatted_end_date})')
 
     # Set x and y limits
     plt.xlim(-25, 25)
