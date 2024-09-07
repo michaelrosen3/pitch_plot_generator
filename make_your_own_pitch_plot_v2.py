@@ -126,13 +126,19 @@ if not statcast_data.empty:
 
 if st.button('Generate Pitch Plot'):
     if pitcher_name in statcast_data['player_name'].unique():
+        # Convert start_date and end_date to datetime64[ns]
+        start_date_dt = pd.to_datetime(start_date)
+        end_date_dt = pd.to_datetime(end_date)
+        
         pitcher_data = statcast_data[(statcast_data['player_name'] == pitcher_name) & 
-                                     (statcast_data['game_date'] >= start_date) & 
-                                     (statcast_data['game_date'] <= end_date)]
-        plot_pitch_movement(pitcher_name, pd.to_datetime(start_date), pd.to_datetime(end_date))
+                                     (statcast_data['game_date'] >= start_date_dt) & 
+                                     (statcast_data['game_date'] <= end_date_dt)]
+        
+        plot_pitch_movement(pitcher_name, start_date_dt, end_date_dt)
         display_summary_statistics(pitcher_data)
     else:
         st.write('Player not found. Please check the name and try again.')
+
 
 
         
