@@ -79,6 +79,17 @@ def plot_pitch_movement(pitcher_name, start_date, end_date):
 
     st.pyplot(plt)
 
+def display_summary_statistics(pitcher_data):
+    # Calculate summary statistics for iVB and HB
+    iVB_stats = pitcher_data['iVB'].describe()
+    HB_stats = pitcher_data['HB'].describe()
+    
+    # Display the statistics
+    st.write("### Summary Statistics")
+    st.write("#### iVB (Induced Vertical Break)")
+    st.write(iVB_stats)
+    st.write("#### HB (Horizontal Break)")
+    st.write(HB_stats)
 
 # Streamlit app layout
 st.title('Pitch Plot Generator')
@@ -115,6 +126,13 @@ if not statcast_data.empty:
 
 if st.button('Generate Pitch Plot'):
     if pitcher_name in statcast_data['player_name'].unique():
+        pitcher_data = statcast_data[(statcast_data['player_name'] == pitcher_name) & 
+                                     (statcast_data['game_date'] >= start_date) & 
+                                     (statcast_data['game_date'] <= end_date)]
         plot_pitch_movement(pitcher_name, pd.to_datetime(start_date), pd.to_datetime(end_date))
+        display_summary_statistics(pitcher_data)
     else:
         st.write('Player not found. Please check the name and try again.')
+
+
+        
