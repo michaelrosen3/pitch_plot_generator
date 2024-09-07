@@ -86,10 +86,13 @@ def display_summary_statistics(pitcher_data):
     # Multiply the means by 12
     mean_pfx *= 12
     
+    # Rename columns
+    mean_pfx.columns = ['Horizontal Break (inches)', 'Induced Vertical Break (inches)']
+    
     # Display the statistics
-    st.write("### Summary Statistics")
-    st.write("#### Mean pfx_x and pfx_z (multiplied by 12) for each pitch type")
+    st.write("#### Vertical/Horizontal Break by Pitch Type")
     st.write(mean_pfx)
+
 
 # Streamlit app layout
 st.title('Pitch Plot Generator')
