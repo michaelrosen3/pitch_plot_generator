@@ -111,6 +111,6 @@ if not statcast_data.empty:
 
 if st.button('Generate Pitch Plot'):
     if pitcher_name in statcast_data['player_name'].unique():
-        plot_pitch_movement(pitcher_name)
+        plot_pitch_movement(pitcher_name, pd.to_datetime(start_date), pd.to_datetime(end_date))
     else:
         st.write('Player not found. Please check the name and try again.')
