@@ -81,8 +81,8 @@ def plot_pitch_movement(pitcher_name, start_date, end_date):
 
 def display_summary_statistics(pitcher_data):
     # Calculate summary statistics for iVB and HB
-    iVB_stats = pitcher_data['iVB'].describe()
-    HB_stats = pitcher_data['HB'].describe()
+    iVB_stats = (pitcher_data['pfx_z']*12).describe()
+    HB_stats = (pitcher_data['pfx_x']*12).describe()
     
     # Display the statistics
     st.write("### Summary Statistics")
@@ -141,4 +141,3 @@ if st.button('Generate Pitch Plot'):
 
 
 
-        
