@@ -89,6 +89,8 @@ def display_summary_statistics(pitcher_data):
     # Rename and reorder columns
     mean_pfx.columns = ['Horizontal Break (inches)', 'Induced Vertical Break (inches)']
     mean_pfx = mean_pfx[['Induced Vertical Break (inches)', 'Horizontal Break (inches)']]
+
+    mean_pfx = mean_pfx.round(1)
     
     # Display the statistics
     st.write("#### Vertical/Horizontal Break by Pitch Type")
