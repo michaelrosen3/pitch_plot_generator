@@ -86,6 +86,8 @@ st.text('FF: Four-Seam Fastball\n'
         'KC: Knuckle Curve\n'
         'ST: Sweeper')
 
+statcast_data['game_date'] = pd.to_datetime(statcast_data['game_date'])
+
 # Create a list of unique player names for the dropdown menu
 player_names = sorted(statcast_data['player_name'].unique())
 
