@@ -126,6 +126,7 @@ statcast_data['game_date'] = pd.to_datetime(statcast_data['game_date'])
 player_names = sorted(statcast_data['player_name'].unique())
 
 # Dropdown menu for player name selection
+# Dropdown menu for player name selection
 pitcher_name = st.selectbox('Search player name', [''] + player_names)
 
 if not statcast_data.empty:
@@ -140,6 +141,7 @@ if not statcast_data.empty:
         format="YYYY-MM-DD"
     )
 
+# Button to generate the pitch plot
 if st.button('Generate Pitch Plot'):
     if pitcher_name in statcast_data['player_name'].unique():
         # Convert start_date and end_date to datetime64[ns]
@@ -154,6 +156,13 @@ if st.button('Generate Pitch Plot'):
         display_summary_statistics(pitcher_data)
     else:
         st.write('Player not found. Please check the name and try again.')
+
+# Move the pitch key description here and format it horizontally
+st.markdown(
+    "FF: Four-Seam Fastball | SI: Sinker | CH: Changeup | CU: Curveball | "
+    "SL: Slider | FC: Cutter | FS: Splitter | KC: Knuckle Curve | ST: Sweeper"
+)
+
 
 
 
