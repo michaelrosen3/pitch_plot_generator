@@ -87,8 +87,8 @@ def display_summary_statistics(pitcher_data):
     mean_pfx[['pfx_x', 'pfx_z']] *= 12
     
     # Rename and reorder columns
-    mean_pfx.columns = ['Horizontal Break (inches)', 'Induced Vertical Break (inches)', 
-                        'Release Height (feet)', 'Velocity (mph)']
+    mean_pfx.columns = ['Horizontal Break (in.)', 'Induced Vertical Break (in.)', 
+                        'Release Height (ft.)', 'Velocity (mph)']
     mean_pfx = mean_pfx[['Induced Vertical Break (inches)', 'Horizontal Break (inches)', 
                          'Release Height (feet)', 'Velocity (mph)']]
 
