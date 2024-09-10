@@ -89,8 +89,8 @@ def display_summary_statistics(pitcher_data):
     # Rename and reorder columns
     mean_pfx.columns = ['Horizontal Break (in.)', 'Induced Vertical Break (in.)', 
                         'Release Height (ft.)', 'Velocity (mph)']
-    mean_pfx = mean_pfx[['Induced Vertical Break (inches)', 'Horizontal Break (inches)', 
-                         'Release Height (feet)', 'Velocity (mph)']]
+    mean_pfx = mean_pfx[['Induced Vertical Break (in.)', 'Horizontal Break (in.)', 
+                         'Release Height (ft.)', 'Velocity (mph)']]
 
     # Calculate pitch usage percentage
     pitch_count = pitcher_data['pitch_type'].value_counts(normalize=True) * 100
