@@ -83,7 +83,7 @@ def display_summary_statistics(pitcher_data):
     # Calculate the mean of pfx_x, pfx_z, release_pos_z, and release_speed for each pitch_type
     mean_pfx = pitcher_data.groupby('pitch_type')[['pfx_x', 'pfx_z', 'release_pos_z', 'release_speed']].mean()
     
-    # Multiply the means of pfx_x and pfx_z by 12 to convert to inches
+    # Multiply the pfx_x and pfx_z by 12 to convert from feet to inches
     mean_pfx[['pfx_x', 'pfx_z']] *= 12
     
     # Rename and reorder columns
@@ -92,12 +92,20 @@ def display_summary_statistics(pitcher_data):
     mean_pfx = mean_pfx[['Induced Vertical Break (inches)', 'Horizontal Break (inches)', 
                          'Release Height (feet)', 'Velocity (mph)']]
 
-    # Round the statistics for better readability
+    # Calculate pitch usage percentage
+    pitch_count = pitcher_data['pitch_type'].value_counts(normalize=True) * 100
+    pitch_count = pitch_count.round(1)  # Round percentages to 1 decimal place
+
+    # Merge usage percentage into the summary table
+    mean_pfx['Usage (%)'] = pitch_count
+
+    # Round all values to one decimal place for cleaner display
     mean_pfx = mean_pfx.round(1)
-    
-    # Display the statistics in Streamlit
+
+    # Display the statistics
     st.write("#### Pitch Type Stats")
     st.write(mean_pfx)
+
 
 # Streamlit app layout
 st.title('Pitch Plot Generator')
