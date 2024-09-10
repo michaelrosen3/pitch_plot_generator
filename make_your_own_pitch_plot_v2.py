@@ -110,16 +110,6 @@ def display_summary_statistics(pitcher_data):
 # Streamlit app layout
 st.title('Pitch Plot Generator')
 
-st.text('FF: Four-Seam Fastball\n'
-        'SI: Sinker\n'
-        'CH: Changeup\n'
-        'CU: Curveball\n'
-        'SL: Slider\n'
-        'FC: Cutter\n'
-        'FS: Splitter\n'
-        'KC: Knuckle Curve\n'
-        'ST: Sweeper')
-
 statcast_data['game_date'] = pd.to_datetime(statcast_data['game_date'])
 
 # Create a list of unique player names for the dropdown menu
