@@ -18,7 +18,7 @@ def my_hash_func(obj):
 
 @st.cache(hash_funcs={types.FunctionType: my_hash_func})
 def load_data():
-    url = 'https://github.com/michaelrosen3/pitch_plot_generator/blob/main/pitch_plot_data_excel_v2.xlsx?raw=true'
+    url = 'https://github.com/michaelrosen3/pitch_plot_generator/blob/main/pitch_plot_data_excel_v3.xlsx?raw=true'
     response = requests.get(url)
     response.raise_for_status()  # Check for HTTP errors
     return pd.read_excel(BytesIO(response.content))
@@ -80,22 +80,24 @@ def plot_pitch_movement(pitcher_name, start_date, end_date):
     st.pyplot(plt)
 
 def display_summary_statistics(pitcher_data):
-    # Calculate the mean of pfx_x and pfx_z for each pitch_type
-    mean_pfx = pitcher_data.groupby('pitch_type')[['pfx_x', 'pfx_z']].mean()
+    # Calculate the mean of pfx_x, pfx_z, release_pos_z, and release_speed for each pitch_type
+    mean_pfx = pitcher_data.groupby('pitch_type')[['pfx_x', 'pfx_z', 'release_pos_z', 'release_speed']].mean()
     
-    # Multiply the means by 12
-    mean_pfx *= 12
+    # Multiply the means of pfx_x and pfx_z by 12 to convert to inches
+    mean_pfx[['pfx_x', 'pfx_z']] *= 12
     
     # Rename and reorder columns
-    mean_pfx.columns = ['Horizontal Break (inches)', 'Induced Vertical Break (inches)']
-    mean_pfx = mean_pfx[['Induced Vertical Break (inches)', 'Horizontal Break (inches)']]
+    mean_pfx.columns = ['Horizontal Break (inches)', 'Induced Vertical Break (inches)', 
+                        'Release Height (feet)', 'Velocity (mph)']
+    mean_pfx = mean_pfx[['Induced Vertical Break (inches)', 'Horizontal Break (inches)', 
+                         'Release Height (feet)', 'Velocity (mph)']]
 
+    # Round the statistics for better readability
     mean_pfx = mean_pfx.round(1)
     
-    # Display the statistics
-    st.write("#### Vertical/Horizontal Break by Pitch Type")
+    # Display the statistics in Streamlit
+    st.write("#### Vertical/Horizontal Break, Release Height, and Velocity by Pitch Type")
     st.write(mean_pfx)
-
 
 # Streamlit app layout
 st.title('Pitch Plot Generator')
