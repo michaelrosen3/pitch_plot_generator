@@ -96,7 +96,7 @@ def display_summary_statistics(pitcher_data):
     mean_pfx = mean_pfx.round(1)
     
     # Display the statistics in Streamlit
-    st.write("#### Vertical/Horizontal Break, Release Height, and Velocity by Pitch Type")
+    st.write("#### Pitch Type Stats")
     st.write(mean_pfx)
 
 # Streamlit app layout
