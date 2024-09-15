@@ -117,7 +117,10 @@ player_names = sorted(statcast_data['player_name'].unique())
 
 # Dropdown menu for player name selection
 # Dropdown menu for player name selection
-pitcher_name = st.selectbox('Search player name', [''] + player_names)
+pitcher_name = st.text_input('Search player name', value='')
+
+if st.button('Clear'):
+    pitcher_name = ''
 
 if not statcast_data.empty:
     min_date = statcast_data['game_date'].min().date()
