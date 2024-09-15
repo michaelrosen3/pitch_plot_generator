@@ -73,7 +73,7 @@ def plot_pitch_movement(pitcher_name, start_date, end_date):
     ax.legend()
 
     # Now adjust the DPI when rendering in Streamlit to scale it down
-    st.pyplot(fig, dpi=250)  # Higher DPI makes the plot appear smaller
+    st.pyplot(fig, dpi=1000)  # Higher DPI makes the plot appear smaller
 
 def display_summary_statistics(pitcher_data):
     # Calculate the mean of pfx_x, pfx_z, release_pos_z, and release_speed for each pitch_type
