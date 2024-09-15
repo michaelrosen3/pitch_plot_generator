@@ -116,15 +116,7 @@ statcast_data['game_date'] = pd.to_datetime(statcast_data['game_date'])
 player_names = sorted(statcast_data['player_name'].unique())
 
 # Adding an empty string option to simulate a clear option
-players = [''] + player_names  # This allows users to "clear" the selection
-
-# Searchbox with default selection
-selected_player = st_searchbox(search_players, label="Select a Pitcher", default='Cole, Gerrit')
-
-# Handle the "clear" option (if the user selects the empty string)
-if selected_player == '':
-    selected_player = None  # or you can set any behavior for a cleared state
-
+pitcher_name = st.selectbox('Search player name', [''] + player_names)
 
 if not statcast_data.empty:
     min_date = statcast_data['game_date'].min().date()
