@@ -116,11 +116,7 @@ statcast_data['game_date'] = pd.to_datetime(statcast_data['game_date'])
 player_names = sorted(statcast_data['player_name'].unique())
 
 # Dropdown menu for player name selection
-# Dropdown menu for player name selection
-pitcher_name = st.selectbox('Search player name', [''] + player_names)
-
-if st.button('Clear'):
-    pitcher_name = ''
+selected_player = st_searchbox(player_names, label="Select a Pitcher", default='López, Pablo')
 
 if not statcast_data.empty:
     min_date = statcast_data['game_date'].min().date()
