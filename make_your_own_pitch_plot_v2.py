@@ -47,7 +47,7 @@ def plot_pitch_movement(pitcher_name, start_date, end_date):
     }
     colors = [pitch_color_dict.get(pt, '#999999') for pt in pitch_types]
 
-    plt.figure(figsize=(4, 4))
+    plt.figure(figsize=(9, 9))
     for i, pitch_type in enumerate(pitch_types):
         pitches = pitcher_data[pitcher_data['pitch_type'] == pitch_type]
         plt.scatter(pitches['pfx_x'] * -12, pitches['pfx_z'] * 12, label=pitch_type, color=colors[i], alpha=0.7)
