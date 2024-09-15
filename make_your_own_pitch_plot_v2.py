@@ -77,7 +77,7 @@ def plot_pitch_movement(pitcher_name, start_date, end_date):
     # Add legend
     plt.legend()
 
-    st.pyplot(plt)
+    st.pyplot(fig, dpi=120)
 
 def display_summary_statistics(pitcher_data):
     # Calculate the mean of pfx_x, pfx_z, release_pos_z, and release_speed for each pitch_type
