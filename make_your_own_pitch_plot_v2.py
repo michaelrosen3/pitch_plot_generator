@@ -29,16 +29,16 @@ data = load_data()
 # Load data once
 statcast_data = load_data()
 
+import matplotlib.pyplot as plt
+import streamlit as st
+
+# Adjust the DPI to control how large the plot appears in the Streamlit app
 def plot_pitch_movement(pitcher_name, start_date, end_date):
     pitcher_data = statcast_data[(statcast_data['player_name'] == pitcher_name) & 
                                  (statcast_data['game_date'] >= start_date) & 
                                  (statcast_data['game_date'] <= end_date)]
 
-    # Get unique pitch types for the pitcher
     pitch_types = pitcher_data['pitch_type'].unique()
-
-    # Define a color palette with more distinct colors
-    num_colors = len(pitch_types)
     pitch_color_dict = {
         'FF': '#D22D49', 'FT': '#DE6A04', 'SI': '#FE9D00', 'FC': '#933F2C', 
         'CH': '#1DBE3A', 'FS': '#3BACAC', 'SC': '#60DB33', 'FO': '#55CCAB', 
@@ -47,37 +47,33 @@ def plot_pitch_movement(pitcher_name, start_date, end_date):
     }
     colors = [pitch_color_dict.get(pt, '#999999') for pt in pitch_types]
 
-    plt.figure(figsize=(9, 9))
+    # Instead of plt.figure(), use plt.subplots and adjust DPI when displaying in Streamlit
+    fig, ax = plt.subplots(figsize=(9, 9))  # Keep figsize the same for aspect ratio
+
     for i, pitch_type in enumerate(pitch_types):
         pitches = pitcher_data[pitcher_data['pitch_type'] == pitch_type]
-        plt.scatter(pitches['pfx_x'] * -12, pitches['pfx_z'] * 12, label=pitch_type, color=colors[i], alpha=0.7)
+        ax.scatter(pitches['pfx_x'] * -12, pitches['pfx_z'] * 12, label=pitch_type, color=colors[i], alpha=0.7)
 
-    # Add labels and title
-    plt.axis('square')
-    plt.xlabel('Horizontal Movement, pitcher perspective (inches)')
-    plt.ylabel('Vertical Movement, pitcher perspective (inches)')
-    
-    # Format the dates to show only YYYY-MM-DD
+    ax.set_aspect('equal', 'box')
+    ax.set_xlabel('Horizontal Movement, pitcher perspective (inches)')
+    ax.set_ylabel('Vertical Movement, pitcher perspective (inches)')
+
     formatted_start_date = start_date.strftime('%Y-%m-%d')
     formatted_end_date = end_date.strftime('%Y-%m-%d')
-    plt.title(f'{pitcher_name} Pitch Plot ({formatted_start_date} to {formatted_end_date})')
+    ax.set_title(f'{pitcher_name} Pitch Plot ({formatted_start_date} to {formatted_end_date})')
 
-    # Set x and y limits
-    plt.xlim(-25, 25)
-    plt.ylim(-25, 25)
+    ax.set_xlim(-25, 25)
+    ax.set_ylim(-25, 25)
+    ax.set_xticks(range(-25, 26, 5))
+    ax.set_yticks(range(-25, 26, 5))
 
-    # Set x and y ticks
-    plt.xticks(ticks=range(-25, 26, 5))
-    plt.yticks(ticks=range(-25, 26, 5))
+    ax.axhline(0, color='black', linestyle='--', linewidth=0.5)
+    ax.axvline(0, color='black', linestyle='--', linewidth=0.5)
 
-    # Add x-y lines
-    plt.axhline(0, color='black', linestyle='--', linewidth=0.5)
-    plt.axvline(0, color='black', linestyle='--', linewidth=0.5)
+    ax.legend()
 
-    # Add legend
-    plt.legend()
-
-    st.pyplot(fig, dpi=120)
+    # Now adjust the DPI when rendering in Streamlit to scale it down
+    st.pyplot(fig, dpi=120)  # Higher DPI makes the plot appear smaller
 
 def display_summary_statistics(pitcher_data):
     # Calculate the mean of pfx_x, pfx_z, release_pos_z, and release_speed for each pitch_type
